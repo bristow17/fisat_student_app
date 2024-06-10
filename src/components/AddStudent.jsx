@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 export const AddStudent = () => {
 
@@ -7,9 +8,9 @@ export const AddStudent = () => {
     const [data, setdata] = useState(
 
         {
-            "id": "",
-            "fname": "",
-            "lname": "",
+            // "_id": "",
+            "firstname": "",
+            "lastname": "",
             "college": "",
             "dob": "",
             "course": "",
@@ -26,9 +27,22 @@ export const AddStudent = () => {
     }
 
     const readvalue = () => {
-        console.log(data)
+        axios.post("https://courseapplogix.onrender.com/addstudents",data).then(
+            (response)=>{
+                console.log(response.data)
+                    if (response.data.status=="success") {
+                        alert("Added Successfully");
+                    } else {
+                        alert(response.data);
+                    }
+                
+            }
+        ).catch(
+            (error)=>{
+                    alert("error");
+            }
+        )
     }
-
 
     return (
         <div>
@@ -38,17 +52,17 @@ export const AddStudent = () => {
                 <div className="row">
                     <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="row g-3">
-                            <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                            {/* <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                 <label htmlFor="" className="label form-label">ID</label>
-                                <input type="text" className="input form-control" name='id' value={data.id} onChange={inputhandler} />
-                            </div>
+                                <input type="text" className="input form-control" name='_id' value={data._id} onChange={inputhandler} />
+                            </div> */}
                             <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                 <label htmlFor="" className="label form-label">First Name</label>
-                                <input type="text" className="input form-control" name='fname' value={data.fname} onChange={inputhandler} />
+                                <input type="text" className="input form-control" name='firstname' value={data.firstname} onChange={inputhandler} />
                             </div>
                             <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                 <label htmlFor="" className="label form-label">Last Name</label>
-                                <input type="text" className="input form-control" name='lname' value={data.lname} onChange={inputhandler} />
+                                <input type="text" className="input form-control" name='lastname' value={data.lastname} onChange={inputhandler} />
                             </div>
                             <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                 <label htmlFor="" className="label form-label">College</label>
@@ -70,7 +84,7 @@ export const AddStudent = () => {
                                 <label htmlFor="" className="label form-label">Email</label>
                                 <input type="text" className="input form-control" name='email' value={data.email} onChange={inputhandler} />
                             </div>
-                            <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                            <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="label form-label">Address</label>
                                 <textarea name="address" id="" className="form-control" value={data.address} onChange={inputhandler}></textarea>
                             </div>

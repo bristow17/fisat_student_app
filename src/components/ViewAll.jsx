@@ -5,61 +5,75 @@ import axios from 'axios'
 const ViewAll = () => {
 
     const [stud, chngstud] = useState([])
-    
-    const fetchdata=()=>{
-        axios.get("https://anishpdm.github.io/dummy-api-new/student.json").then(
-            (response)=>{
+
+    const fetchdata = () => {
+        axios.get("https://courseapplogix.onrender.com/getdata").then(
+            (response) => {
                 console.log(response.data)
                 chngstud(response.data)
             }
-        ).catch().finally()
+        ).catch(
+            (error)=>(
+                console.log()
+            )
+        ).finally()
     }
 
-    useEffect(()=>{fetchdata()},[])
+    useEffect(() => { fetchdata() }, [])
 
     return (
         <div>
             <Navbar />
-
+        <br></br><br></br>
             <div className="container">
                 <div className="row">
-                    <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <div className="row g-3">
-                        {
-                                stud.map(
-                                    (value,i)=>{
-                                        return <div className="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-                                        <div class="card">
-                                            <img src="https://i.pinimg.com/736x/ff/28/57/ff28577f0c90281ecf84faa74a770c27.jpg" class="card-img-top" alt="..." height="300px"></img>
-                                            <div class="card-body">
-        
-                                                <p class="card-text">{value._id}</p>
-                                                <p class="card-text">{value.firstname}</p>
-                                                <p class="card-text">{value.lastname}</p>
-                                                <p class="card-text">{value.college}</p>
-                                                <p class="card-text">{value.email}</p>
-                                                <p class="card-text">{value.course}</p>
-                                                <p class="card-text">{value.address}</p>
-                                                <p class="card-text">{value.dob}</p>
-                                                <p class="card-text">{value.mobile}</p>
-                                                {/* <p class="card-text">{value.__v}</p> */}
-                                                {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    }
-                                )
-                            }
-                            
-                        </div>
+                    <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-col-xl-12 col-xxl-12">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+
+                                    {/* <th scope="col">ID</th> */}
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">College</th>
+                                    <th scope="col">DOB</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Address</th>
+                                    {/* <th scope="col"></th> */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    stud.map(
+                                        (value, i) => {
+                                            return <tr>
+
+                                                {/* <td>{value._id}</td> */}
+                                                <td>{value.firstname}</td>
+                                                <td>{value.lastname}</td>
+                                                <td>{value.college}</td>
+                                                <td>{value.dob}</td>
+                                                <td>{value.course}</td>
+                                                <td>{value.mobile}</td>
+                                                <td>{value.email}</td>
+                                                <td>{value.address}</td>
+                                            </tr>
+                                        }
+                                    )
+                                }
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
+
+
+
     )
 }
 
